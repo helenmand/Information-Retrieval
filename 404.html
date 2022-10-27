@@ -1,6 +1,5 @@
 <a href="https://codepen.io/uiswarup/full/yLzypyY" target="_blank">
-    <header class="top-header">
-  </header>
+    
   
   <style>
     @charset "UTF-8";
@@ -23,7 +22,7 @@
     body {
     padding: 0;
     margin: 0;
-    background: #181828;
+    background: #252525;
     font-size: 14px;
     line-height: 1;
     }
@@ -196,7 +195,7 @@
 
     .error__message {
     text-align: center;
-    color: #181828;
+    color: #252525;
     }
 
     .message__title {
@@ -232,7 +231,7 @@
     width: 170px;
     display: inline-block;
     vertical-align: top;
-    border: 1px solid #212121;
+    border: 1px solid #252525;
     padding-left: 10px;
     padding-right: 46px;
     }
@@ -243,7 +242,7 @@
     top: 50%;
     -webkit-transform: translateY(-50%);
             transform: translateY(-50%);
-    color: #212121;
+    color: #252525;
     -webkit-transition: color .25s ease;
     transition: color .25s ease;
     }
@@ -255,8 +254,8 @@
     display: inline-block;
     vertical-align: top;
     margin: 0 15px;
-    border: 1px solid #181828;
-    color: #181828;
+    border: 1px solid #252525;
+    color: #252525;
     text-decoration: none;
     font-family: 'Montserrat', sans-serif;
     text-transform: uppercase;
@@ -269,7 +268,7 @@
     .e-nav__link:before {
     content: '';
     height: 200px;
-    background: #212121;
+    background: #252525;
     position: absolute;
     top: 70px;
     right: 70px;
@@ -372,13 +371,13 @@
     .cable {
     width: 8px;
         height: 248px;
-        background-image: linear-gradient(rgb(32 148 218 / 70%), rgb(193 65 25)), linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7));
+        background-image: linear-gradient(rgba(218, 32, 32, 0.7), rgb(193, 25, 129)), linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7));
     }
 
     .cover {
     width: 200px;
     height: 80px;
-    background: #0bd5e8;
+    background: crimson;
     border-top-left-radius: 50%;
     border-top-right-radius: 50%;
     position: relative;
@@ -390,7 +389,7 @@
     max-width: 200px;
     height: 20px;
     border-radius: 100%;
-    background: #08ffff;
+    background: crimson;
     position: absolute;
     left: 0px;
     right: 0px;
@@ -398,25 +397,26 @@
     bottom: -9px;
     z-index: 100;
     }
+
     .in-cover .bulb {
         width: 50px;
         height: 50px;
-        background-color: #08fffa;
+        background-color: rgb(233, 39, 78);
         border-radius: 50%;
         position: absolute;
         left: 0px;
         right: 0px;
         bottom: -20px;
         margin: 0px auto;
-        -webkit-box-shadow: 0 0 15px 7px rgba(0,255,255,0.8), 0 0 40px 25px rgba(0,255,255,0.5), -75px 0 30px 15px rgba(0,255,255,0.2);
-        box-shadow: 0 0 25px 7px rgb(127 255 255 / 80%), 0 0 64px 47px rgba(0,255,255,0.5), 0px 0 30px 15px rgba(0,255,255,0.2);
+        -webkit-box-shadow: 0 0 15px 7px rgba(255, 0, 0, 0.8), 0 0 40px 25px rgba(255, 0, 0, 0.5), -75px 0 30px 15px rgba(255, 0, 0, 0.2);
+        box-shadow: 0 0 25px 7px rgba(255, 127, 127, 0.8), 0 0 64px 47px rgba(255, 0, 0, 0.5), 0px 0 30px 15px rgba(255, 0, 0, 0.2);
     }
 
 
     .light {
         width: 200px;
         height: 0px;
-        border-bottom: 900px solid rgb(44 255 255 / 24%);
+        border-bottom: 900px solid rgba(175, 14, 14, 0.24);
         border-left: 50px solid transparent;
         border-right: 50px solid transparent;
         position: absolute;
@@ -483,10 +483,10 @@
     }
     .e-social__icon {
         padding-bottom: 0;
-    }
-    }
+    } }
+
     @media (max-width: 750px) {
-    body, html, {
+    body, html {
         max-height: 100vh;
     }
     .error__content {
@@ -499,8 +499,7 @@
         padding-top: 0;
         padding-bottom: 100px;
         height: 100vh;
-    }
-    }
+    } }
     @media (max-width: 650px) {
     .message__title {
         font-size: 36px;
