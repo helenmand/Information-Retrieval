@@ -15,8 +15,11 @@ def index():
 # Result page
 @app.route('/result', methods=['GET', 'POST'])
 def queries():
-    data = results
-    return render_template('result.html', uquery = data)
+    data = [['sitting 1', 'speaker 1', 'lorem ipsum τεστ ελληνικά', 'fff'],
+            ['sitting 2', 'speaker 2', 'lorem ipsum l', 'fffff'],
+            ['sitting 3', 'speaker 1', 'lorem ipsum dolv d rfjgeg gerhngnerjkg  ergherjgn rgenerjnerg  regnerjkgnerk', 'fff'],
+            ['sitting 4', 'speaker 3', 'lorem ipsum hsh', 'fff']]
+    return render_template('result.html', queryDetails = data, uquery = results)
 
 @app.errorhandler(404)
 def page_not_found(e):

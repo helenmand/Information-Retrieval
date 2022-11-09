@@ -1,3 +1,85 @@
 <html>
-    You searched: {{uquery}}
+    <style>
+        @import url("https://fonts.googleapis.com/css?family=Inconsolata:700");
+        
+        body {
+            background-color: #252525;
+            font-family: "Inconsolata", monospace;
+            font-size: 33px;
+            margin: 0px;
+            color: rgba(255, 255, 255, 0.692);
+        }
+
+        P { text-align: center }
+
+        ul {
+            padding: 5%;
+            list-style-type: none;
+            display: table;
+            margin: 0 auto;
+        }
+
+        li { margin-bottom: 40px; }
+
+        .hd {
+          color: #252525;
+          font-size: 36px;
+        }
+
+        table {
+          table-layout: fixed;
+          width: 100%;
+        }
+
+        
+        table, th, td {
+          border: px solid #252525;
+          border-collapse: collapse;
+        }
+
+        th, td {
+          vertical-align: middle;
+          text-align: center;
+          padding: 15px;
+          background-color: rgba(255,255,255,0.15);
+          color: white;
+          min-width: 150px;
+
+          background-color: crimson;
+          box-shadow: 0 0 15px crimson;
+        }
+
+        li:nth-child(2){ margin-top: 50px; }
+
+        li:last-child { margin-bottom: 0px; }
+
+    </style>
+      <br>
+      <p>You searched: {{uquery}}</p>
+      
+      <body>
+        <ul>
+          <table>
+            <li>
+              <th class="hd"> Sitting</th>
+              <th class="hd"> Speaker </th>
+              <th class="hd"> Description </th>
+              <th class="hd"> Date </th>
+            </li>
+          </table>
+          {% for sitting, speaker, description, date in queryDetails %}
+          <table>
+            <li>
+              <td class="sitting"> {{sitting}} </td>
+              <td class="speaker"> {{speaker}} </td>
+              <td class="description"> {{description}} </td>
+              <td class="date"> {{date}} </td>
+            </li>
+          </table>
+          {% endfor %}
+          
+        </ul>
+      </body>
+      
+      </html>
 </html>
