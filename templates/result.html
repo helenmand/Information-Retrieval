@@ -10,20 +10,11 @@
             color: rgba(255, 255, 255, 0.692);
         }
 
-        P { text-align: center }
-
         ul {
-            padding: 5%;
+            padding: 3%;
             list-style-type: none;
             display: table;
             margin: 0 auto;
-        }
-
-        li { margin-bottom: 40px; }
-
-        .hd {
-          color: #252525;
-          font-size: 36px;
         }
 
         table {
@@ -49,37 +40,50 @@
           box-shadow: 0 0 15px crimson;
         }
 
-        li:nth-child(2){ margin-top: 50px; }
+        li { margin-bottom: 40px; }
+
+        td:hover {transform: scale(1.1); }
+
+        table:nth-child(n+13) {visibility: hidden;}
+
+        li:nth-child(1){ margin-top: 30px; }
 
         li:last-child { margin-bottom: 0px; }
 
+
+        .hd {
+          color: #252525;
+          font-size: 36px;
+        }
+
     </style>
-      <br>
-      <p>You searched: {{uquery}}</p>
-      
-      <body>
-        <ul>
-          <table>
-            <li>
-              <th class="hd"> Sitting</th>
-              <th class="hd"> Speaker </th>
-              <th class="hd"> Description </th>
-              <th class="hd"> Date </th>
-            </li>
-          </table>
-          {% for sitting, speaker, description, date in queryDetails %}
-          <table>
-            <li>
-              <td class="sitting"> {{sitting}} </td>
-              <td class="speaker"> {{speaker}} </td>
-              <td class="description"> {{description}} </td>
-              <td class="date"> {{date}} </td>
-            </li>
-          </table>
-          {% endfor %}
-          
-        </ul>
-      </body>
+    <br>
+    <body>
+    <center>You searched: {{uquery}}</center>
+      <ul>
+        <table>
+          <li>
+            <th class="hd"> Sitting</th>
+            <th class="hd"> Speaker </th>
+            <th class="hd"> Date </th>
+            <th class="hd"> Tags </th>
+            <th class="hd"> Score </th>
+          </li>
+        </table>
+        {% for sitting, speaker, date, tags, score in queryDetails %}
+        <table>
+          <li>
+            <td> {{sitting}} </td>
+            <td> {{speaker}} </td>
+            <td> {{date}} </td>
+            <td> {{tags}} </td>
+            <td> {{score}} </td>
+          </li>
+        </table>
+        {% endfor %}
+        
+      </ul>
+    </body>
       
       </html>
 </html>

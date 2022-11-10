@@ -42,6 +42,10 @@
             padding: 0 20px;
             box-shadow: 0 0 25px 0 crimson, 0 20px 25px 0 rgba(0, 0, 0, 0.2);
         }
+        
+        .txt {
+            visibility: hidden;
+        }
 
         .fa{
             box-sizing: border-box;
@@ -58,6 +62,10 @@
             transition: all 1s;
         }
 
+        form:enabled{
+            width: 200px;
+        }
+        
         form:hover{
             width: 200px;
             cursor: pointer;
@@ -74,6 +82,10 @@
             color: crimson;
         }
 
+        form:hover .txt{
+            color: #252525;
+            visibility: visible;
+        }
 
         a {
         display: none;
@@ -90,9 +102,11 @@
 
     </style>
 
-    <form method="POST" action="">
-        <input type="search" name="query" required>
-        <input type="submit" value="Submit" style="width:0px; height:0px; opacity:0;"/> 
+    <form id="input-form" method="POST" action="">
+        <input type="search" name="query" placeholder="Search..." required >
+        <input type="submit" value="Submit" style="width:0px; height:0px; opacity:0;"/>
+        <p class="txt">search</p>
         <i class="fa fa-search"></i>
     </form>
+
 </html>
