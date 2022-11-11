@@ -1,0 +1,16 @@
+<html>
+    <style>
+        @import url("https://fonts.googleapis.com/css?family=Inconsolata:700");
+        
+        body {
+            background-color: #252525;
+            font-family: "Inconsolata", monospace;
+            font-size: 33px;
+            margin: 0px;
+            color: rgba(255, 255, 255, 0.692);
+        }
+    </style>
+    {% for element in toPrint %}
+        {{element}}
+    {% endfor %}
+</html>
