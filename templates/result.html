@@ -40,6 +40,8 @@
           box-shadow: 0 0 15px crimson;
         }
 
+        form{ align-items: center; }
+
         li { margin-bottom: 40px; }
 
         td:hover {transform: scale(1.1); }
@@ -50,10 +52,20 @@
 
         li:last-child { margin-bottom: 0px; }
 
+        input:hover { cursor: pointer;}
 
         .hd {
           color: #252525;
           font-size: 36px;
+        }
+
+        input{ 
+          font-family: "Inconsolata", monospace;
+          font-size: 25px;
+          color: white;
+          background-color: crimson;
+          border: 0.3rem solid;;
+          border-color: #252525;
         }
 
     </style>
@@ -63,17 +75,21 @@
       <ul>
         <table>
           <li>
-            <th class="hd"> Sitting</th>
+            <th class="hd"> ID</th>
             <th class="hd"> Speaker </th>
             <th class="hd"> Date </th>
             <th class="hd"> Tags </th>
             <th class="hd"> Score </th>
           </li>
         </table>
-        {% for sitting, speaker, date, tags, score in queryDetails %}
+        {% for id, sittingid, speaker, date, tags, score in queryDetails %}
         <table>
           <li>
-            <td> {{sitting}} </td>
+            <td> 
+              <form method="POST" action="" id="annotator">
+                  <input type="submit" name="query" value="{{id}}" placeholder={{sittingid}}></input>
+              </form> 
+           </td>
             <td> {{speaker}} </td>
             <td> {{date}} </td>
             <td> {{tags}} </td>

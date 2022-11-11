@@ -14,5 +14,9 @@ def get_random_data():
             speech_sample = [random.choice(row[10].split(' ')) for _ in range(0,5)]
             speech_sample = (' '.join(speech_sample)).translate(str.maketrans('', '', string.punctuation))
             sittings.append([row[4], row[0], row[1], speech_sample, random.randint(0,100)/100])
-            
-    return random.sample(sittings, 5)
+    
+    sample = random.sample(sittings, 5)
+    for i in range(0,5):
+        sample[i].insert(0, i)
+
+    return sample
