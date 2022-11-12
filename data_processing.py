@@ -3,7 +3,10 @@ from greek_stemmer import stemmer
 def punctuation_removal(Data):
     preprocessed_data = []
     for line in Data:
-        preprocessed_line = line.replace(',',' ').replace('.',' ').replace('-',' ').replace('–',' ').replace(':', ' ').replace('«',' ').replace('»',' ').replace(';',' ').replace('!',' ').replace('\t',' ').replace('έ','ε').replace('ά','α').replace('ή','η').replace('ό','ο').replace('ύ','υ').replace('ί','ι').replace('ώ','ω').lower().split(' ')
+        preprocessed_line = line.replace(',',' ').replace('.',' ').replace('-',' ').replace('–',' ').\
+        replace(':', ' ').replace('«',' ').replace('»',' ').replace(';',' ').replace('!',' ').\
+        replace('\t',' ').replace('έ','ε').replace('ά','α').replace('ή','η').replace('ό','ο').\
+        replace('ύ','υ').replace('ί','ι').replace('ώ','ω').lower().split(' ')
         preprocessed_line = [i for i in preprocessed_line if i] 
         preprocessed_data.append(preprocessed_line)
     return preprocessed_data
