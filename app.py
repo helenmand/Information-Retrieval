@@ -1,12 +1,13 @@
 from unittest import result
 from flask import Flask, render_template, request, redirect, url_for
 import query as q
- 
+
 app = Flask(__name__)
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
     global results
+    # reuest to search 
     if request.method == 'POST':
         results = request.form.get('query')  
         return redirect('/result')
@@ -16,25 +17,78 @@ def index():
 # Result page
 @app.route('/result', methods=['GET', 'POST'])
 def queries():
-    global link1
-    if request.method == 'POST':
-        link1 = request.form.get('query')   
-        return redirect('/sitting')
-    """data = [
-            ['sitting 1', 'speaker 1', 'ffff', 'Lorem ipsum dolor sit amet. Aut error commodi ut ipsum voluptatem aut facere', '1'],
-            ['sitting 2', 'speaker 2', 'ffff', 'Lorem ipsum dolor sit amet. Aut error commodi ut ipsum voluptatem aut facere', '0.5'],
-            ['sitting 3', 'speaker 1', 'ffff', 'Lorem ipsum dolor sit amet. Aut error commodi ut ipsum voluptatem aut facere', '0.2'],
-            ['sitting 4', 'speaker 3', 'ffff', 'Lorem ipsum dolor sit amet. Aut error commodi ut ipsum voluptatem aut facere', '0.9'],
-            ['sitting 5', 'speaker 2', 'ffff', 'Lorem ipsum dolor sit amet. Aut error commodi ut ipsum voluptatem aut facere', '0.4'],
-            ]"""
-    global data 
+    global sitting_id, data, speaker_name, party_name
     data = q.get_random_data()
+    # request to view more info about
+    if request.method == 'POST':
+        # the sitting
+        if "sitting" in request.form:
+            sitting_id = request.form.get('sitting')   
+            return redirect('/sitting')
+        # the speaker
+        elif "speaker" in request.form:
+            speaker_name = request.form.get('speaker')
+            return redirect('/speaker')
+        # or the political party
+        elif "party" in request.form:
+            party_name = request.form.get('party')
+            return redirect('/party')
+    
     return render_template('result.html', queryDetails = data, uquery = results)
+
 
 @app.route('/sitting', methods=['GET', 'POST'])
 def sitting():
-    dt = data[int(link1)][1:]
-    return render_template('sitting.html', toPrint=dt)
+    global sitting_id, data, speaker_name, party_name
+    dt = data[int(sitting_id)][1:]
+
+    # request to view more info about
+    if request.method == 'POST':
+        # the speaker
+        if "speaker" in request.form:
+            speaker_name = request.form.get('speaker')
+            return redirect('/speaker')
+        # or the political party
+        elif "party" in request.form:
+            party_name = request.form.get('party')
+            return redirect('/party')
+
+    return render_template('sitting.html', toPrint = dt)
+
+@app.route('/speaker', methods=['GET', 'POST'])
+def speaker():
+    global sitting_id, data, speaker_name, party_name
+    dt = q.sittings_by_speaker(speaker_name)
+    # request to view more info about
+    if request.method == 'POST':
+        # the sitting
+        if "sitting" in request.form:
+            sitting_id = request.form.get('sitting')   
+            return redirect('/sitting')
+        # or the political party
+        elif "party" in request.form:
+            party_name = request.form.get('party')
+            return redirect('/party')
+
+    return render_template('speaker.html', sittings = dt, speaker_name = speaker_name), 404
+
+@app.route('/party', methods=['GET', 'POST'])
+def party():
+    global sitting_id, data, speaker_name, party_name
+    dt = q.sittings_by_party(party_name)
+    # request to view more info about
+    if request.method == 'POST':
+        # the sitting
+        if "sitting" in request.form:
+            sitting_id = request.form.get('sitting')   
+            return redirect('/sitting')
+        # or the speaker
+        elif "speaker" in request.form:
+            party_name = request.form.get('speaker')
+            return redirect('/speaker')
+
+    return render_template('party.html', sittings = dt, party_name = party_name), 404
+
 
 @app.errorhandler(404)
 def page_not_found(e):

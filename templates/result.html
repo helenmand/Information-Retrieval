@@ -1,4 +1,6 @@
 <html>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+
     <style>
         @import url("https://fonts.googleapis.com/css?family=Inconsolata:700");
         
@@ -40,6 +42,38 @@
           box-shadow: 0 0 15px crimson;
         }
 
+        div{
+          padding-left: 3%;
+        }
+
+        button{ 
+          background-color: transparent;
+          border: 0;
+        }
+
+        input{ 
+          font-family: "Inconsolata", monospace;
+          font-size: 14px;
+          color: white;
+          background-color: crimson;
+          border-top-style: hidden;
+          border-right-style: hidden;
+          border-left-style: hidden;
+        }
+
+        .fas{
+            padding: 10px;
+            width: 45.5px;
+            height: 48.5px;
+            position: absolute;
+            color: crimson;
+            text-shadow:0 0 20px crimson;
+            text-align: center;
+            font-size: 1.9em;
+        } 
+
+        .fas:hover { cursor: pointer;}
+
         form{ align-items: center; }
 
         li { margin-bottom: 40px; }
@@ -59,39 +93,72 @@
           font-size: 36px;
         }
 
-        input{ 
-          font-family: "Inconsolata", monospace;
-          font-size: 25px;
-          color: white;
-          background-color: crimson;
-          border: 0.3rem solid;;
-          border-color: #252525;
+        .back-button{
+          position: absolute;
+          text-indent: -15px;
+          padding: 5px 0 5px 10px;
+          width: 53px;/* modified by label length */
+          overflow: auto;
         }
 
     </style>
     <br>
     <body>
+    <!--
+    Back button
+    -->
+    <div>
+      <button class="back-button" onclick="history.back()"> <i class="fas fa-arrow-left"></i> </button>
+    </div>
+    <!--
+    query provided by the user
+    -->
     <center>You searched: {{uquery}}</center>
+      <!--
+      Headers of the result table
+      -->
       <ul>
         <table>
           <li>
             <th class="hd"> ID</th>
             <th class="hd"> Speaker </th>
-            <th class="hd"> Date </th>
+            <th class="hd"> Party </th>
             <th class="hd"> Tags </th>
             <th class="hd"> Score </th>
           </li>
         </table>
-        {% for id, sittingid, speaker, date, tags, score in queryDetails %}
+        <!--
+        Printing the results, each row of the result table
+        corresponds to a doc similar to the query
+        -->
+        {% for id, sittingid, speaker, party, tags, score in queryDetails %}
         <table>
           <li>
+            <!--
+            Requesting to view the complete sitting
+            -->
             <td> 
               <form method="POST" action="" id="annotator">
-                  <input type="submit" name="query" value="{{id}}" placeholder={{sittingid}}></input>
+                  <input type="submit" name="sitting" value="{{id}}"></input>
               </form> 
            </td>
-            <td> {{speaker}} </td>
-            <td> {{date}} </td>
+            <!--
+            Requesting to view all the sittings of a speaker
+            -->
+           <td> 
+              <form method="POST" action="" id="annotator">
+                <input type="submit" name="speaker" value="{{speaker}}" ></input>
+            </form>
+            </td>
+            <!--
+            Requesting to view all the sittings of a political party
+            -->
+            <td>
+              <form method="POST" action="" id="annotator">
+                <input type="submit" name="party" value="{{party}}"></input>
+            </form>
+            </td>
+            
             <td> {{tags}} </td>
             <td> {{score}} </td>
           </li>
@@ -100,6 +167,4 @@
         
       </ul>
     </body>
-      
-      </html>
 </html>

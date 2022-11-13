@@ -1,0 +1,161 @@
+<html>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+
+    <style>
+        @import url("https://fonts.googleapis.com/css?family=Inconsolata:700");
+        
+        body {
+            background-color: #252525;
+            font-family: "Inconsolata", monospace;
+            font-size: 33px;
+            margin: 0px;
+            color: rgba(255, 255, 255, 0.692);
+        }
+
+        ul {
+            padding: 3%;
+            list-style-type: none;
+            display: table;
+            margin: 0 auto;
+        }
+
+        table {
+          table-layout: fixed;
+          width: 100%;
+        }
+
+        
+        table, th, td {
+          border: px solid #252525;
+          border-collapse: collapse;
+        }
+
+        th, td {
+          vertical-align: middle;
+          text-align: center;
+          padding: 15px;
+          background-color: rgba(255,255,255,0.15);
+          color: white;
+          min-width: 150px;
+
+          background-color: crimson;
+          box-shadow: 0 0 15px crimson;
+        }
+
+        button{ 
+          background-color: transparent;
+          border: 0;
+        }
+
+        form{ align-items: center; }
+
+        li { margin-bottom: 20px; }
+
+        table:nth-child(n+13) {visibility: hidden;}
+
+        td:hover {transform: scale(1.1); }
+
+        li:nth-child(1){ margin-top: 30px; }
+
+        li:last-child { margin-bottom: 0px; }
+
+        input:hover { cursor: pointer;}
+        
+        div { padding-left: 3%; }
+
+        .hd {
+          color: #252525;
+          font-size: 36px;
+        }
+
+        .fas{
+            padding: 10px;
+            width: 45.5px;
+            height: 48.5px;
+            position: absolute;
+            color: crimson;
+            text-shadow:0 0 20px crimson;
+            text-align: center;
+            font-size: 1.9em;
+        } 
+
+        .back-button{
+          position: absolute;
+          text-indent: -15px;
+          padding: 5px 0 5px 10px;
+          width: 53px;/* modified by label length */
+          overflow: auto;
+        }
+
+        .fas:hover { cursor: pointer;}
+
+        ul.body-title {
+            padding: auto;
+            padding-left: 3%;
+            padding-top: 0%;
+            padding-bottom: 1%;
+            color: #252525;
+            font-size: 36px;
+        }
+
+        ul.body {
+            padding-left: 3%;
+            padding-top: 0%;
+            padding-bottom: 0;
+        }
+
+        input{ 
+          font-family: "Inconsolata", monospace;
+          font-size: 15px;
+          color: white;
+          background-color: crimson;
+          border-top-style: hidden;
+          border-right-style: hidden;
+          border-left-style: hidden;
+        }
+
+    </style>
+    <div>
+        <button class="back-button" onclick="history.back()"> <i class="fas fa-arrow-left"></i> </button>
+    </div>
+    <ul>
+        <table>
+            <li>
+              <th class="hd"> Speaker </th>
+              <th> {{speaker_name}} </th>
+            </li>
+        </table>
+    </ul>
+
+    <ul class="body">
+        <table>
+            <li>
+            <th class="hd"> ID</th>
+            <th class="hd"> Party </th>
+            <th class="hd"> Tags </th>
+            </li>
+
+            {% for id, party, tags in sittings %}
+            <table>
+                <li>
+                <!--link to complete sitting-->
+                <td> 
+                    <form method="POST" action="" id="annotator">
+                        <input type="submit" name="sitting" value="{{id}}"></input>
+                    </form> 
+                </td>
+                <!--link to view all the sittings of a political party-->
+                <td>
+                    <form method="POST" action="" id="annotator">
+                        <input type="submit" name="party" value="{{party}}"></input>
+                    </form>
+                </td>
+
+                <td> {{tags}} </td>
+
+                </li>
+            </table>
+            {% endfor %}
+        </table>
+    </ul>
+
