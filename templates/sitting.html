@@ -1,4 +1,6 @@
 <html>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+
     <style>
         @import url("https://fonts.googleapis.com/css?family=Inconsolata:700");
         
@@ -9,8 +11,152 @@
             margin: 0px;
             color: rgba(255, 255, 255, 0.692);
         }
+
+        ul {
+            padding: 3%;
+            list-style-type: none;
+            display: table;
+            margin: 0 auto;
+        }
+
+        table {
+          table-layout: fixed;
+          width: 100%;
+        }
+
+        
+        table, th, td {
+          border: px solid #252525;
+          border-collapse: collapse;
+        }
+
+        th, td {
+          vertical-align: middle;
+          text-align: center;
+          padding: 15px;
+          background-color: rgba(255,255,255,0.15);
+          color: white;
+          min-width: 150px;
+
+          background-color: crimson;
+          box-shadow: 0 0 15px crimson;
+        }
+
+        button{ 
+          background-color: transparent;
+          border: 0;
+        }
+
+        form{ align-items: center; }
+
+        li { margin-bottom: 20px; }
+
+        table:nth-child(n+13) {visibility: hidden;}
+
+        li:nth-child(1){ margin-top: 30px; }
+
+        li:last-child { margin-bottom: 0px; }
+
+        input:hover { cursor: pointer;}
+        
+        div { padding-left: 3%; }
+
+        .hd {
+          color: #252525;
+          font-size: 36px;
+        }
+
+        .fas{
+            padding: 10px;
+            width: 45.5px;
+            height: 48.5px;
+            position: absolute;
+            color: crimson;
+            text-shadow:0 0 20px crimson;
+            text-align: center;
+            font-size: 1.9em;
+        } 
+
+        .back-button{
+          position: absolute;
+          text-indent: -15px;
+          padding: 5px 0 5px 10px;
+          width: 53px;/* modified by label length */
+          overflow: auto;
+        }
+
+        .fas:hover { cursor: pointer;}
+
+        ul.body-title {
+            padding: auto;
+            padding-left: 3%;
+            padding-top: 0%;
+            padding-bottom: 1%;
+            color: #252525;
+            font-size: 36px;
+        }
+
+        ul.body-text {
+            padding-left: 3%;
+            padding-top: 0%;
+            padding-bottom: 0;
+        }
+
+        input{ 
+          font-family: "Inconsolata", monospace;
+          font-size: 15px;
+          color: white;
+          background-color: crimson;
+          border-top-style: hidden;
+          border-right-style: hidden;
+          border-left-style: hidden;
+        }
+
     </style>
-    {% for element in toPrint %}
-        {{element}}
-    {% endfor %}
+    <div>
+        <button class="back-button" onclick="history.back()"> <i class="fas fa-arrow-left"></i> </button>
+    </div>
+    <ul>
+        <table>
+            <li>
+              <th class="hd"> Speaker </th>
+              <th class="hd"> Party </th>
+              <th class="hd"> Tags </th>
+              <th class="hd"> Score </th>
+            </li>
+          </table>
+        <table>
+            <li>
+                <td> 
+                    <form method="POST" action="" id="annotator">
+                        <input type="submit" name="speaker" value="{{toPrint[1]}}"></input>
+                    </form>
+                </td>
+                <td> 
+                    <form method="POST" action="" id="annotator">
+                        <input type="submit" name="party" value="{{toPrint[2]}}"></input>
+                    </form>
+                </td>
+                <td> {{toPrint[3]}}</td>
+                <td> {{toPrint[4]}}</td>
+            </li>
+        </table>
+    </ul>
+    <ul class="body-title">
+        <table>
+            <th class="hd">
+                Sitting Body
+            </th>
+        </table>
+    </ul>
+    <ul class="body-text">
+        <table>
+            <td> 
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vulputate vulputate purus. Ut aliquet est tristique, pulvinar diam in, commodo lorem. Proin enim odio, pharetra pretium ligula a, tempor maximus dolor. Praesent orci libero, viverra eget ornare ac, consequat at turpis. Curabitur ut sapien iaculis, egestas arcu vitae, molestie dolor. Curabitur dapibus placerat arcu ac iaculis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur scelerisque lacinia dignissim. Vestibulum elit diam, hendrerit nec lectus eget, sagittis tincidunt nibh. Phasellus vehicula velit sed maximus interdum. Ut dictum augue nisi, nec finibus mauris ullamcorper a. Aliquam ipsum tortor, pulvinar ac pharetra sed, pulvinar ac risus.
+                Aenean vel purus elementum, pellentesque ligula ac, ultrices velit. Curabitur vel lectus ante. Vestibulum eu enim ac velit posuere pellentesque sit amet eu lacus. Quisque quis tortor ut dolor mollis luctus sed eget erat. Integer ullamcorper molestie consectetur. Sed at tristique metus. Aenean vitae nibh nisi. Morbi ac volutpat augue.
+                Fusce vel enim nulla. Sed nec vehicula mauris, at iaculis felis. Quisque aliquam sagittis tristique. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Suspendisse tincidunt nisl at velit interdum tempus. Phasellus id mi vitae lorem finibus tristique et at felis. Integer tellus quam, ultrices ac urna non, pretium imperdiet leo. Nam ullamcorper consequat enim pellentesque molestie. Sed maximus consequat quam, quis tincidunt metus pellentesque non. Duis sed ante eros. Sed eleifend egestas arcu eget aliquet.
+                Donec tincidunt odio ut accumsan porttitor. Maecenas posuere lacus vitae vulputate commodo. Donec et quam tortor. Suspendisse placerat posuere varius. Curabitur aliquam eros eu sapien scelerisque, non tempor diam laoreet. Sed consectetur malesuada lorem vitae euismod. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nulla urna mauris, tempus at tortor in, facilisis lobortis sem. In efficitur ut orci in ornare. Praesent bibendum et ligula eget ultrices. Curabitur porttitor nisl quam, eget ullamcorper leo consectetur id. Vivamus sollicitudin malesuada est, eu ullamcorper diam egestas quis. Aenean neque nibh, semper vitae porta ut, porttitor non ligula. Ut rutrum tellus a ligula accumsan ullamcorper. Quisque varius mi eros, sed fringilla nisi eleifend sed.
+                Duis in nisl tincidunt, placerat dui in, faucibus libero. Nulla quis eleifend ligula. Nam scelerisque rutrum tortor et euismod. Phasellus placerat ut neque quis porta. Sed eu hendrerit arcu. Aenean eu augue id ante sodales consequat. Suspendisse vel urna libero. Vivamus luctus porttitor velit, a mattis libero ornare sagittis. Aliquam sit amet elit sed neque rhoncus commodo eget in lorem. Proin et pretium arcu. Nulla facilisi. Phasellus sagittis est vitae libero maximus, at aliquet mi maximus. Fusce viverra interdum enim, in malesuada justo malesuada sit amet. Proin suscipit vestibulum leo, eu luctus urna tincidunt ac.  </td>
+        </table>
+    </ul>
 </html>
