@@ -12,7 +12,7 @@ def doc_doc_similarity(Docs):
 def doc_query_similarity(Docs, query, numOfDocs):
     tfidf_vectorizer = TfidfVectorizer()
     tfidf_matrix = tfidf_vectorizer.fit_transform(Docs)
-    tfidf_query = tfidf_vectorizer.fit_transform(Docs)
+    tfidf_query = tfidf_vectorizer.fit_transform(query)
     similarity_list = []
     for i in range (0, numOfDocs):
         similarity_list.append(cosine_similarity(tfidf_query, tfidf_matrix[i,:]))
