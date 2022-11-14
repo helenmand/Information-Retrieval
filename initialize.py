@@ -6,7 +6,8 @@ import warnings
 warnings.filterwarnings("ignore")
 
 def init():
-    Data_temp = pd.read_csv('Greek_Parliament_Proceedings_1989_2020_DataSample.csv')  
+    #Data_temp = pd.read_csv('Greek_Parliament_Proceedings_1989_2020_DataSample.csv')
+    Data_temp = pd.read_csv('Greek_Parliament_Proceedings_1989_2020.csv')
     Data = Data_temp.loc[(Data_temp['political_party'] != 'βουλη') & (Data_temp['political_party'] != 'μετωπο ευρωπαικης ρεαλιστικης ανυπακοης (μερα25)')]
     Data.reset_index(drop=True, inplace=True)
     Data_list = Data['speech'].values.tolist()
@@ -44,17 +45,17 @@ def init():
 
     return Data, Docs, member_dict, party_dict, tags_dict 
 
-"""if __name__ == "__main__":
-    Data, Docs, member_dict, party_dict, tags_dict = init()"""
+#if __name__ == "__main__":
+    #Data, Docs, member_dict, party_dict, tags_dict = init()
     
-#Data, Docs, member_dict, party_dict, tags_dict = init()
+Data, Docs, member_dict, party_dict, tags_dict = init()
 
-"""query = dp.process('Τουρκία')
+query = dp.process('Ευρω')
 if (type(query) is int):
     print ('Bad query')
 
 print(cos_sim.doc_query_similarity(Docs, query, len(Docs)))
-"""
+
 #print(type(Data))
 #print(member_dict)
 #print('--------------------------------------')
