@@ -2,6 +2,7 @@ import pandas as pd
 import data_processing as dp
 import cos_similarity as cos_sim
 import warnings
+
 warnings.filterwarnings("ignore")
 
 def init():
@@ -43,13 +44,14 @@ def init():
 
     return Data, Docs, member_dict, party_dict, tags_dict 
 
+"""
 Data, Docs, member_dict, party_dict, tags_dict = init()
 
 query = dp.process('Τουρκία')
 if (type(query) is int):
     print ('Bad query')
 
-print(cos_sim.doc_query_similarity(Docs, query, len(Docs)))
+print(cos_sim.doc_query_similarity(Docs, query, len(Docs)))"""
 #print(member_dict)
 #print('--------------------------------------')
 #print(party_dict)
