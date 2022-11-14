@@ -1,6 +1,7 @@
 from unittest import result
 from flask import Flask, render_template, request, redirect, url_for
 import query as q
+import data_processing as dp
 import initialize as init
 
 app = Flask(__name__)
@@ -10,7 +11,11 @@ def index():
     global uquery
     # reuest to search 
     if request.method == 'POST':
-        uquery = request.form.get('query')  
+        uquery = dp.process(request.form.get('query'))
+            
+        if (type(uquery) is int):
+            return redirect('404.html')
+
         return redirect('/result')
         
     return render_template('index.html')
@@ -41,7 +46,7 @@ def queries():
 @app.route('/sitting', methods=['GET', 'POST'])
 def sitting():
     global sitting_id, data, speaker_name, party_name, Data, tags_dict
-    data = q.get_sitting_info(int(sitting_id), Data, tags_dict)
+    data = q.get_sitting_info(sitting_id, Data, tags_dict)
 
     # request to view more info about
     if request.method == 'POST':

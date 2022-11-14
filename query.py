@@ -1,7 +1,6 @@
 import csv
 import random
 import string
-import data_processing as dp
 import cos_similarity as cs
 import initialize as it
 from functools import reduce
@@ -64,7 +63,6 @@ Returns the 5 most similar documents (sittings) to a query:
 
 """
 def get_sittings(query, Data, Docs, tags_dict):
-    query = dp.process(query)
     similarities = cs.doc_query_similarity(Docs, query, len(Docs))
     
     sittings = []
@@ -86,9 +84,9 @@ Returns information about a specific sitting:
 5. tags - most frequent words in the speech
 """
 def get_sitting_info(sitting_id, Data, tags_dict):
-    data = [item for sublist in Data.iloc[[sitting_id], [0, 1, 5, 10] ].values.tolist() for item in sublist]
+    data = [item for sublist in Data.iloc[[int(sitting_id)], [0, 1, 5, 10] ].values.tolist() for item in sublist]
     
-    return data + [' '.join(tags_dict.get(sitting_id))]
+    return data + [' '.join(tags_dict.get(int(sitting_id)))]
 
 """
 Returns all the sittings by a speaker:
@@ -98,11 +96,7 @@ Returns all the sittings by a speaker:
 3. tags - most frequent words in the speech
 """
 def get_sittings_by_speaker(speaker, Data, tags_dict, member_dict):
-    return [ [sitting_id] + get_sitting_info(sitting_id, Data, tags_dict)[2::2] for sitting_id in member_dict[speaker]]
-
-    # sitting_ids = member_dict[speaker]
-    #for sitting_id in sitting_ids:
-    #    sittings.append([sitting_id] + get_sitting_info(sitting_id, Data, tags_dict)[0::2])"""
+    return [[sitting_id] + get_sitting_info(sitting_id, Data, tags_dict)[2::2] for sitting_id in member_dict[speaker]]
 
 """
 Returns all the sittings by a party:
