@@ -67,10 +67,11 @@ def makeTags(Data):
 
     tf_dict = {}
     for word in word_frequency.keys():
-        tf_dict[word] = word_frequency[word] / len(Data)
+        if word.isalpha():
+            tf_dict[word] = word_frequency[word] / len(Data)
 
     heap = [(-value, key) for key, value in tf_dict.items()]
-    tf_list = nsmallest(3, heap)
+    tf_list = nsmallest(5, heap)
 
     tags = []
     for tuple in tf_list:

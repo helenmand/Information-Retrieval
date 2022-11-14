@@ -1,15 +1,16 @@
 from unittest import result
 from flask import Flask, render_template, request, redirect, url_for
 import query as q
+import initialize as init
 
 app = Flask(__name__)
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    global results
+    global uquery
     # reuest to search 
     if request.method == 'POST':
-        results = request.form.get('query')  
+        uquery = request.form.get('query')  
         return redirect('/result')
         
     return render_template('index.html')
@@ -17,8 +18,8 @@ def index():
 # Result page
 @app.route('/result', methods=['GET', 'POST'])
 def queries():
-    global sitting_id, data, speaker_name, party_name
-    data = q.get_random_data()
+    global sitting_id, data, speaker_name, party_name, uquery
+    data = q.get_sittings(uquery, Data, Docs, tags_dict)
     # request to view more info about
     if request.method == 'POST':
         # the sitting
@@ -34,13 +35,13 @@ def queries():
             party_name = request.form.get('party')
             return redirect('/party')
     
-    return render_template('result.html', queryDetails = data, uquery = results)
+    return render_template('result.html', queryDetails = data, uquery = uquery)
 
 
 @app.route('/sitting', methods=['GET', 'POST'])
 def sitting():
-    global sitting_id, data, speaker_name, party_name
-    dt = data[int(sitting_id)][1:]
+    global sitting_id, data, speaker_name, party_name, Data, tags_dict
+    data = q.get_sitting_info(int(sitting_id), Data, tags_dict)
 
     # request to view more info about
     if request.method == 'POST':
@@ -53,12 +54,12 @@ def sitting():
             party_name = request.form.get('party')
             return redirect('/party')
 
-    return render_template('sitting.html', toPrint = dt)
+    return render_template('sitting.html', toPrint = data)
 
 @app.route('/speaker', methods=['GET', 'POST'])
 def speaker():
-    global sitting_id, data, speaker_name, party_name
-    dt = q.sittings_by_speaker(speaker_name)
+    global sitting_id, data, speaker_name, party_name, Data, tags_dict, member_dict
+    sittings = q.get_sittings_by_speaker(speaker_name, Data, tags_dict, member_dict)
     # request to view more info about
     if request.method == 'POST':
         # the sitting
@@ -70,12 +71,12 @@ def speaker():
             party_name = request.form.get('party')
             return redirect('/party')
 
-    return render_template('speaker.html', sittings = dt, speaker_name = speaker_name), 404
+    return render_template('speaker.html', sittings = sittings, speaker_name = speaker_name), 404
 
 @app.route('/party', methods=['GET', 'POST'])
 def party():
-    global sitting_id, data, speaker_name, party_name
-    dt = q.sittings_by_party(party_name)
+    global sitting_id, data, speaker_name, party_name, Data, tags_dict, party_dict, member_dict
+    data = q.get_sittings_by_party(party_name, Data, tags_dict, party_dict, member_dict)
     # request to view more info about
     if request.method == 'POST':
         # the sitting
@@ -87,7 +88,7 @@ def party():
             party_name = request.form.get('speaker')
             return redirect('/speaker')
 
-    return render_template('party.html', sittings = dt, party_name = party_name), 404
+    return render_template('party.html', sittings = data, party_name = party_name), 404
 
 
 @app.errorhandler(404)
@@ -95,4 +96,6 @@ def page_not_found(e):
     return render_template('404.html'), 404
 
 if __name__ == '__main__':
+    global Data, Docs, member_dict, party_dict, tags_dict 
+    Data, Docs, member_dict, party_dict, tags_dict = init.init()
     app.run(debug=True)
