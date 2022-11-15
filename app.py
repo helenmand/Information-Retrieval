@@ -11,7 +11,7 @@ def index():
     global uquery
     # reuest to search 
     if request.method == 'POST':
-        uquery = dp.process(str(request.form.get('query')))
+        uquery, query_tags = dp.process(str(request.form.get('query')))
             
         if (type(uquery) is int):
             return redirect('404.html')

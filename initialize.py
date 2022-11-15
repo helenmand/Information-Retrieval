@@ -6,9 +6,9 @@ import warnings
 warnings.filterwarnings("ignore")
 
 def init():
-    #Data_temp = pd.read_csv('Greek_Parliament_Proceedings_1989_2020_DataSample.csv')
-    Data_temp = pd.read_csv('Greek_Parliament_Proceedings_1989_2020.csv')
-    Data = Data_temp.loc[(Data_temp['political_party'] != 'βουλη') & (Data_temp['political_party'] != 'μετωπο ευρωπαικης ρεαλιστικης ανυπακοης (μερα25)')]
+    Data_temp = pd.read_csv('Greek_Parliament_Proceedings_1989_2020_DataSample.csv')
+    #Data_temp = pd.read_csv('Greek_Parliament_Proceedings_1989_2020.csv')
+    Data = Data_temp.loc[(Data_temp['political_party'] != 'βουλη')]
     Data.reset_index(drop=True, inplace=True)
     Data_list = Data['speech'].values.tolist()
 
@@ -16,13 +16,14 @@ def init():
     tags_dict = {}
     member_dict = {}
     party_dict = {}
+    past_percentage = 0
     id = 0
+    print ('0%')
     for speech in Data_list:
-
-        result = dp.process(speech)
+        result, tags = dp.process(speech)
         if (type(result) != int):
             Docs.append(result)
-            tags_dict[id] = dp.makeTags(speech)
+            tags_dict[id] = tags
 
             name = Data['member_name'][id]
             if name in member_dict.keys():
@@ -43,22 +44,20 @@ def init():
             Data.drop([id], axis=0, inplace=True)
             Data.reset_index(drop=True, inplace=True)
 
+        percentage = int(id/len(Data.index)*100)
+        if (past_percentage != percentage):
+            print(str(percentage) + '%')
+            past_percentage = percentage
     return Data, Docs, member_dict, party_dict, tags_dict 
 
 #if __name__ == "__main__":
     #Data, Docs, member_dict, party_dict, tags_dict = init()
-    
+''' 
 Data, Docs, member_dict, party_dict, tags_dict = init()
 
-query = dp.process('Ευρω')
+query, query_tags = dp.process('Ευρω')
 if (type(query) is int):
     print ('Bad query')
 
 print(cos_sim.doc_query_similarity(Docs, query, len(Docs)))
-
-#print(type(Data))
-#print(member_dict)
-#print('--------------------------------------')
-#print(party_dict)
-#print('--------------------------------------')
-#print(tags_dict)
+'''

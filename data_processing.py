@@ -1,16 +1,16 @@
 from greek_stemmer import stemmer
-import collections
-from heapq import nsmallest
+from collections import Counter
+import sys
 
 def punctuation_removal(Data):
     preprocessed_data = []
     preprocessed_data = Data.replace(',', ' ').replace('.', ' ').replace('-', ' ').replace('–', ' ').\
     replace(':', ' ').replace('«', ' ').replace('»', ' ').replace(';', ' ').replace('!', ' ').replace('…',' ').\
-    replace('\t', ' ').replace('έ','ε').replace('ά','α').replace('ή','η').replace('ό','ο').\
+    replace('\t', ' ').replace('\b', ' ').replace('\xa0', ' ').replace('έ','ε').replace('ά','α').replace('ή','η').replace('ό','ο').\
     replace('ύ','υ').replace('ί','ι').replace('ώ','ω').replace('Ό','ο').replace('Έ','ε').replace('Ά','α').replace('Ή','η').\
     replace('Ύ','υ').replace('Ί','ι').replace('Ώ','ω').lower()
     preprocessed_data = preprocessed_data.split(' ')
-    preprocessed_data = [word for word in preprocessed_data if word != '']
+    preprocessed_data = [word for word in preprocessed_data if word != '' and word != ' ' and word.isalpha()]
     return preprocessed_data
 
 def stop_word_removal(preprocessed_data):
@@ -31,7 +31,11 @@ def stemming(preprocessed_data):
     index = 0
     preprocessed_data = preprocessed_data.split(' ')
     for word in preprocessed_data:
-        stemmed_word = stemmer.stem_word(word, 'VBG')
+        try:
+            stemmed_word = stemmer.stem_word(word, 'VBG')
+        except:
+            print (preprocessed_data)
+            sys.exit(1)
         if stemmed_word.islower():
             del preprocessed_data[index]
         else:
@@ -42,39 +46,18 @@ def stemming(preprocessed_data):
 
 def process(Data):
 
-    preprocessed_data1 = punctuation_removal(Data)
-    preprocessed_data2 = stop_word_removal(preprocessed_data1)
-    preprocessed_data_final = stemming(preprocessed_data2)
+    preprocessed_data = stop_word_removal(punctuation_removal(Data))
+    processed_data = stemming(preprocessed_data)
 
-    try:
-        if (preprocessed_data_final != ''):
-            return preprocessed_data_final
-        else:
-            return 1
-    except:
-        print (Data)
-        print (preprocessed_data1)
-        print (preprocessed_data2)
-        print (preprocessed_data_final) 
+    data_list = preprocessed_data.split(' ')
+    word_frequency = Counter(data_list)
 
-def makeTags(Data):
-
-    preprocessed_data1 = punctuation_removal(Data)
-    preprocessed_data2 = stop_word_removal(preprocessed_data1)
-
-    data_list = preprocessed_data2.split(' ')
-    word_frequency = collections.Counter(data_list)
-
-    tf_dict = {}
-    for word in word_frequency.keys():
-        if word.isalpha():
-            tf_dict[word] = word_frequency[word] / len(Data)
-
-    heap = [(-value, key) for key, value in tf_dict.items()]
-    tf_list = nsmallest(5, heap)
-
-    tags = []
-    for tuple in tf_list:
-        tags.append(tuple[1])
-
-    return tags
+    tags = word_frequency.most_common(5)
+    tags1 = []
+    for tag in tags:
+        tags1.append(tag[0])
+    
+    if (processed_data != ''):
+        return processed_data, tags1
+    else:
+        return 1, 1
