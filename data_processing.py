@@ -13,13 +13,9 @@ def punctuation_removal(Data):
     preprocessed_data = [word for word in preprocessed_data if word != '' and word != ' ' and word.isalpha()]
     return preprocessed_data
 
-def stop_word_removal(preprocessed_data):
+def stop_word_removal(preprocessed_data, stop_words_array):
     preprocessed_data1 = []
     stop_words_array = []
-    with open("stopwords.txt", "r", encoding="utf8") as file:
-        for stopword in file.readlines():
-            stopword = stopword[:-1]
-            stop_words_array.append(stopword)
     preprocessed_data1 = preprocessed_data
     for stopword in stop_words_array:
         preprocessed_data1 = [word for word in preprocessed_data1 if word != stopword]
@@ -44,9 +40,9 @@ def stemming(preprocessed_data):
     preprocessed_data1 = ' '.join(preprocessed_data)        
     return preprocessed_data1            
 
-def process(Data):
+def process(Data, stop_words_array):
 
-    preprocessed_data = stop_word_removal(punctuation_removal(Data))
+    preprocessed_data = stop_word_removal(punctuation_removal(Data), stop_words_array)
     processed_data = stemming(preprocessed_data)
 
     data_list = preprocessed_data.split(' ')

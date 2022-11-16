@@ -6,8 +6,8 @@ import warnings
 warnings.filterwarnings("ignore")
 
 def init():
-    Data_temp = pd.read_csv('Greek_Parliament_Proceedings_1989_2020_DataSample.csv')
-    #Data_temp = pd.read_csv('Greek_Parliament_Proceedings_1989_2020.csv')
+    #Data_temp = pd.read_csv('Greek_Parliament_Proceedings_1989_2020_DataSample.csv')
+    Data_temp = pd.read_csv('Greek_Parliament_Proceedings_1989_2020.csv')
     Data = Data_temp.loc[(Data_temp['political_party'] != 'βουλη')]
     Data.reset_index(drop=True, inplace=True)
     Data_list = Data['speech'].values.tolist()
@@ -18,9 +18,14 @@ def init():
     party_dict = {}
     past_percentage = 0
     id = 0
+    stop_words_array = []
+    with open("stopwords.txt", "r", encoding="utf8") as file:
+        for stopword in file.readlines():
+            stopword = stopword[:-1]
+            stop_words_array.append(stopword)
     print ('0%')
     for speech in Data_list:
-        result, tags = dp.process(speech)
+        result, tags = dp.process(speech, stop_words_array)
         if (type(result) != int):
             Docs.append(result)
             tags_dict[id] = tags
@@ -48,7 +53,7 @@ def init():
         if (past_percentage != percentage):
             print(str(percentage) + '%')
             past_percentage = percentage
-    return Data, Docs, member_dict, party_dict, tags_dict 
+    return Data, Docs, stop_words_array, member_dict, party_dict, tags_dict 
 
 #if __name__ == "__main__":
     #Data, Docs, member_dict, party_dict, tags_dict = init()

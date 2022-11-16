@@ -102,5 +102,5 @@ def page_not_found(e):
 
 if __name__ == '__main__':
     global Data, Docs, member_dict, party_dict, tags_dict 
-    Data, Docs, member_dict, party_dict, tags_dict = init.init()
-    app.run(debug=True)
+    Data, Docs, stop_words_array, member_dict, party_dict, tags_dict = init.init()
+    app.run(debug=False)
