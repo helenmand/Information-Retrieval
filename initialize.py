@@ -7,7 +7,7 @@ warnings.filterwarnings("ignore")
 
 def init():
     #Data_temp = pd.read_csv('Greek_Parliament_Proceedings_1989_2020_DataSample.csv')
-    Data_temp = pd.read_csv('Greek_Parliament_Proceedings_1989_2020.csv')
+    Data_temp = pd.read_csv('Greek_Parliament_Proceedings_1989_2020_DataSample.csv')
     Data = Data_temp.loc[(Data_temp['political_party'] != 'βουλη')]
     Data.reset_index(drop=True, inplace=True)
     Data_list = Data['speech'].values.tolist()

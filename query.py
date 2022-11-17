@@ -66,7 +66,6 @@ def get_sittings(query, Data, Docs, tags_dict):
     similarities = cs.doc_query_similarity(Docs, query, len(Docs))
     
     sittings = []
-    
     for sitting in similarities:
         data = [item for sublist in Data.iloc[[sitting], [0, 5]].values.tolist() for item in sublist]
 
