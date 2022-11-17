@@ -11,7 +11,7 @@ def index():
     global uquery
     # reuest to search 
     if request.method == 'POST':
-        uquery, query_tags = dp.process(str(request.form.get('query')))
+        uquery, query_tags = dp.process(str(request.form.get('query')), stop_words_array)
             
         if (type(uquery) is int):
             return redirect('404.html')
@@ -101,6 +101,6 @@ def page_not_found(e):
     return render_template('404.html'), 404
 
 if __name__ == '__main__':
-    global Data, Docs, member_dict, party_dict, tags_dict 
+    global Data, Docs, member_dict, party_dict, tags_dict, stop_words_array 
     Data, Docs, stop_words_array, member_dict, party_dict, tags_dict = init.init()
     app.run(debug=False)
