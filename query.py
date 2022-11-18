@@ -1,7 +1,4 @@
 import cos_similarity as cs
-import initialize as it
-from functools import reduce
-
 
 """
 Returns the 5 most similar documents (sittings) to a query:
@@ -10,7 +7,6 @@ Returns the 5 most similar documents (sittings) to a query:
 2. name of the speaker
 3. political party of the speaker
 4. tags - most frequent words in the speech
-
 """
 def get_sittings(query, Data, Docs, index_dict, words_dict, tags_dict):
     similarities = cs.doc_query_similarity(Docs, index_dict, words_dict, query)
@@ -67,6 +63,7 @@ def get_sittings_by_party(party, Data, tags_dict, party_dict, member_dict):
 import csv
 import random
 import string
+import initialize as it
 
 def clean_tags(text):
     speech_sample = [random.choice(text.split(' ')) for _ in range(0,5)]
