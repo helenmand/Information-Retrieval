@@ -27,17 +27,13 @@ def stemming(preprocessed_data):
     index = 0
     preprocessed_data = preprocessed_data.split(' ')
     for word in preprocessed_data:
-        try:
-            stemmed_word = stemmer.stem_word(word, 'VBG')
-        except:
-            print (preprocessed_data)
-            sys.exit(1)
+        stemmed_word = stemmer.stem_word(word, 'VBG')
         if stemmed_word.islower():
             del preprocessed_data[index]
         else:
             preprocessed_data[index] = stemmed_word
         index += 1
-    preprocessed_data1 = ' '.join(preprocessed_data)        
+    preprocessed_data1 = preprocessed_data      
     return preprocessed_data1            
 
 def process(Data, stop_words_array):
@@ -53,7 +49,7 @@ def process(Data, stop_words_array):
     for tag in tags:
         tags1.append(tag[0])
     
-    if (processed_data != ''):
+    if (processed_data != []):
         return processed_data, tags1
     else:
         return 1, 1

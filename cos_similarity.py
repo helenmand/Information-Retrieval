@@ -10,18 +10,30 @@ def doc_doc_similarity(Docs):
 
     return ddsim_matrix
 
-def doc_query_similarity(Docs, query, numOfDocs):
+def doc_query_similarity(Docs, words_dict, query):
     tfidf_vectorizer = TfidfVectorizer()
 
-    Docs.append(query)
-    tfidf_vector = tfidf_vectorizer.fit_transform(Docs)
+    index_dict = {}
+    index = 0
+    Docs_To_Search = []
+    query1 = query.split(' ')
+    for word in query1:
+        if word in words_dict:
+            for id in words_dict[word]:
+                if id not in Docs_To_Search:
+                    index_dict[index] = id
+                    index += 1
+                    Docs_To_Search.append(Docs[id])
+    
+    Docs_To_Search.append(query)
+    tfidf_vector = tfidf_vectorizer.fit_transform(Docs_To_Search)
     Docs_matrix = tfidf_vector.toarray()
-    query_vector = Docs_matrix[len(Docs)-1, :]
+    query_vector = Docs_matrix[len(Docs_To_Search)-1, :]
 
     similarity_dict = {}
-    for i in range (0, numOfDocs-1):
+    for i in range (0, len(Docs_To_Search)-2):
         sim_value = cosine_similarity([query_vector], [Docs_matrix[i,:]])
-        similarity_dict[i] = sim_value[0][0]
+        similarity_dict[index_dict[i]] = sim_value[0][0]
 
     heap = [(-value, key) for key, value in similarity_dict.items()]
     sim_list = nsmallest(5, heap)
