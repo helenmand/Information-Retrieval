@@ -14,7 +14,6 @@ def index():
     if request.method == 'POST':
         squery = request.form.get('query')
         uquery, query_tags = dp.process(squery, stop_words_array)
-        uquery = ' '.join(uquery)
         fs = 1
 
         # bad query
@@ -31,7 +30,7 @@ def queries():
     global sitting_id, data, speaker_name, party_name, squery, uquery, querries, fs
 
     if fs == 1:
-        data = q.get_sittings(uquery, Data, Docs, words_dict, tags_dict)
+        data = q.get_sittings(uquery, Data, Docs, index_dict, words_dict, tags_dict)
         querries = render_template('result.html', queryDetails = data, uquery = squery)
 
     # request to view more info about the sitting , the speaker or the political party
@@ -106,7 +105,7 @@ def page_not_found(e):
     return render_template('404.html'), 404
 
 if __name__ == '__main__':
-    global Data, Docs, words_dict, member_dict, party_dict, tags_dict, stop_words_array, fs
-    Data, Docs, words_dict, stop_words_array, member_dict, party_dict, tags_dict = init.init()
+    global Data, Docs, index_dict, words_dict, member_dict, party_dict, tags_dict, stop_words_array, fs
+    Data, Docs, index_dict, words_dict, stop_words_array, member_dict, party_dict, tags_dict = init.init()
     fs = 0
     app.run(debug=False)
