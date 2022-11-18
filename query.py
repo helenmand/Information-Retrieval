@@ -12,8 +12,8 @@ Returns the 5 most similar documents (sittings) to a query:
 4. tags - most frequent words in the speech
 
 """
-def get_sittings(query, Data, Docs, tags_dict):
-    similarities = cs.doc_query_similarity(Docs, query, len(Docs))
+def get_sittings(query, Data, Docs, words_dict, tags_dict):
+    similarities = cs.doc_query_similarity(Docs, words_dict, query)
     
     sittings = []
     for sitting in similarities:

@@ -58,13 +58,13 @@ def init():
         else:
             Data.drop([id], axis=0, inplace=True)
             Data.reset_index(drop=True, inplace=True)
-        print (len(words_dict))
+        #print (len(words_dict))
         percentage = int(id/len(Data.index)*100)
         if (past_percentage != percentage):
             print(str(percentage) + '%')
             past_percentage = percentage
 
-    return Data, Docs, words_dict, stop_words_array, tags_dict 
+    return Data, Docs, words_dict, stop_words_array, member_dict, party_dict, tags_dict 
 
 #if __name__ == "__main__":
     #Data, Docs, member_dict, party_dict, tags_dict = init()
