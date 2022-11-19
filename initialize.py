@@ -1,6 +1,5 @@
 import pandas as pd
 import data_processing as dp
-import cos_similarity as cos_sim
 import warnings
 import time
 
@@ -33,12 +32,12 @@ def init():
             stopword = stopword[:-1]
             stop_words_array.append(stopword)
 
-    t0 = time.time()
+    #t0 = time.time()
     print ('Processing: 0%')
     for speech in Data_list:
 
         speech_list = speech.split(' ')
-        if (len(speech_list) > 15):
+        if (len(speech_list) > 100):
             result, tags = dp.process(speech, stop_words_array)
 
             if (type(result) != int):
@@ -78,8 +77,8 @@ def init():
         percentage = int(index/Data_length*100)
         if (past_percentage != percentage):
             print('Processing: ' + str(percentage) + '%')
-            print (time.time() - t0)
-            t0 = time.time()
+            #print (time.time() - t0)
+            #t0 = time.time()
             past_percentage = percentage
 
     print('Done!')

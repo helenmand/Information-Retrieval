@@ -12,7 +12,7 @@ def doc_doc_similarity(Docs):
 
     return ddsim_matrix
 
-def doc_query_similarity(Docs, index_dict, words_dict, query):
+def doc_query_similarity(Docs, words_dict, query):
     index_dict = {}
     index = 0
     Tf_idf_dict = {}
@@ -46,7 +46,7 @@ def doc_query_similarity(Docs, index_dict, words_dict, query):
                 else:
 
                     #Tf calculation
-                    Tf = words_dict[word][id]/len((Docs[index_dict[id]].split(' ')))
+                    Tf = words_dict[word][id]/len((Docs[id].split(' ')))
 
                     #Tf_Idf calculation
                     Tf_idf_dict[id].append(Tf * Idf)

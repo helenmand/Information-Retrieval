@@ -9,11 +9,11 @@ Returns the 5 most similar documents (sittings) to a query:
 4. tags - most frequent words in the speech
 """
 def get_sittings(query, Data, Docs, index_dict, words_dict, tags_dict):
-    similarities = cs.doc_query_similarity(Docs, index_dict, words_dict, query)
+    similarities = cs.doc_query_similarity(Docs, words_dict, query)
     
     sittings = []
     for sitting in similarities:
-        data = [item for sublist in Data.iloc[[sitting], [0, 5]].values.tolist() for item in sublist]
+        data = [item for sublist in Data.iloc[[index_dict[sitting]], [0, 5]].values.tolist() for item in sublist]
 
         sittings.append([sitting] + data + [' '.join(tags_dict.get(sitting))] + [similarities[sitting]])
     
@@ -28,8 +28,8 @@ Returns information about a specific sitting:
 4. speech 
 5. tags - most frequent words in the speech
 """
-def get_sitting_info(sitting_id, Data, tags_dict):
-    data = [item for sublist in Data.iloc[[int(sitting_id)], [0, 1, 5, 10] ].values.tolist() for item in sublist]
+def get_sitting_info(sitting_id, Data, index_dict, tags_dict):
+    data = [item for sublist in Data.iloc[[index_dict[int(sitting_id)]], [0, 1, 5, 10] ].values.tolist() for item in sublist]
     
     return data + [' '.join(tags_dict.get(int(sitting_id)))]
 
@@ -40,8 +40,8 @@ Returns all the sittings by a speaker:
 2. political party of the speaker
 3. tags - most frequent words in the speech
 """
-def get_sittings_by_speaker(speaker, Data, tags_dict, member_dict):
-    return [[sitting_id] + get_sitting_info(sitting_id, Data, tags_dict)[2::2] for sitting_id in member_dict[speaker]]
+def get_sittings_by_speaker(speaker, Data, index_dict, tags_dict, member_dict):
+    return [[sitting_id] + get_sitting_info(sitting_id, Data, index_dict, tags_dict)[2::2] for sitting_id in member_dict[speaker]]
 
 """
 Returns all the sittings by a party:
@@ -50,11 +50,11 @@ Returns all the sittings by a party:
 2. name of the speaker
 3. tags - most frequent words in the speech
 """
-def get_sittings_by_party(party, Data, tags_dict, party_dict, member_dict):
+def get_sittings_by_party(party, Data, index_dict, tags_dict, party_dict, member_dict):
     sittings = []
     for speaker in party_dict[party]:
         for sitting_id in member_dict[speaker]:
-            sittings.append([sitting_id] + get_sitting_info(sitting_id, Data, tags_dict)[0::4])
+            sittings.append([sitting_id] + get_sitting_info(sitting_id, Data, index_dict, tags_dict)[0::4])
     return sittings
 
 

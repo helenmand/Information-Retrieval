@@ -51,7 +51,7 @@ def queries():
 @app.route('/sitting', methods=['GET', 'POST'])
 def sitting():
     global sitting_id, data, speaker_name, party_name, Data, tags_dict, fs
-    data = q.get_sitting_info(sitting_id, Data, tags_dict)
+    data = q.get_sitting_info(sitting_id, Data, index_dict, tags_dict)
     fs += 1
 
     # request to view more info about the speaker or the political party
@@ -68,7 +68,7 @@ def sitting():
 @app.route('/speaker', methods=['GET', 'POST'])
 def speaker():
     global sitting_id, data, speaker_name, party_name, Data, tags_dict, member_dict, fs
-    sittings = q.get_sittings_by_speaker(speaker_name, Data, tags_dict, member_dict)
+    sittings = q.get_sittings_by_speaker(speaker_name, Data, index_dict, tags_dict, member_dict)
     fs += 1
 
     # request to view more info about the sitting or the political party
@@ -85,7 +85,7 @@ def speaker():
 @app.route('/party', methods=['GET', 'POST'])
 def party():
     global sitting_id, data, speaker_name, party_name, Data, tags_dict, party_dict, member_dict, fs
-    data = q.get_sittings_by_party(party_name, Data, tags_dict, party_dict, member_dict)
+    data = q.get_sittings_by_party(party_name, Data, index_dict, tags_dict, party_dict, member_dict)
     fs += 1
 
     # request to view more info about the sitting or the speaker
