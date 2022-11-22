@@ -17,11 +17,12 @@ def doc_query_similarity(Docs, words_dict, query):
     index = 0
     Tf_idf_dict = {}
 
-    #query1 = query.split(' ')
+    Docs_To_Search = []
     for word in query:
         if word in words_dict:
             for id in words_dict[word]:
-                if id not in Tf_idf_dict:
+                if id not in index_dict:
+                    Docs_To_Search.append(id)
                     Tf_idf_dict[id] = []
                     index_dict[index] = id
                     index += 1
@@ -33,10 +34,10 @@ def doc_query_similarity(Docs, words_dict, query):
             #Idf calculation
             N = len(Tf_idf_dict) + 1
             Nt = len(words_dict[word]) + 1
-            Idf = log(N/(Nt + 1))
+            Idf = log(1 + N/Nt)
 
             #Query_vector Tf_Idf
-            query_vector.append((query.count(word)/len(query)) * Idf)
+            query_vector.append((1 + log(query.count(word))) * Idf)
 
             for id in Tf_idf_dict:
                 if id not in words_dict[word]:
@@ -46,25 +47,30 @@ def doc_query_similarity(Docs, words_dict, query):
                 else:
 
                     #Tf calculation
-                    Tf = words_dict[word][id]/len((Docs[id].split(' ')))
+                    Tf = 1 + log(words_dict[word][id])
 
                     #Tf_Idf calculation
                     Tf_idf_dict[id].append(Tf * Idf)
 
         else:
 
-            query_vector.append(query.count(word)/len(query) * log((len(Tf_idf_dict) + 1)/2))
+            query_vector.append((1 + log(query.count(word))) * log(2))
             for id in Tf_idf_dict:
                 Tf_idf_dict[id].append(0.0)
 
     Docs_matrix = []
     for id in Tf_idf_dict:
         Docs_matrix.append(Tf_idf_dict[id])
-    Docs_matrix = np.array(Docs_matrix)                
+    Docs_matrix = np.array(Docs_matrix)
+    query_vector = np.array(query_vector)                
 
     similarity_dict = {}
     for i in range (0, len(Docs_matrix)-1):
-        sim_value = ((np.dot(query_vector, Docs_matrix[i]))/(len(query_vector) * 2))
+       
+        if (len(Docs_matrix[i]) > 1):
+            sim_value = sum(Docs_matrix[i])/(np.linalg.norm(Docs_matrix[i]) * np.linalg.norm(query_vector))
+        else:
+            sim_value = sum(Docs_matrix[i])
         similarity_dict[index_dict[i]] = sim_value
 
     heap = [(-value, key) for key, value in similarity_dict.items()]

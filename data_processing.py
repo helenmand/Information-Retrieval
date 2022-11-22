@@ -16,10 +16,9 @@ def punctuation_removal(Data):
 
 def stop_word_removal(preprocessed_data, stop_words_array):
     preprocessed_data1 = []
-    stop_words_array = []
-    preprocessed_data1 = preprocessed_data
-    for stopword in stop_words_array:
-        preprocessed_data1 = [word for word in preprocessed_data1 if word != stopword]
+    for word in preprocessed_data:
+        if word not in stop_words_array:
+            preprocessed_data1.append(word)
     preprocessed_data1 = ' '.join(preprocessed_data1)                          
     return preprocessed_data1
 

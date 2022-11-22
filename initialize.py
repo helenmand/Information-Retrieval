@@ -1,14 +1,14 @@
 import pandas as pd
 import data_processing as dp
 import warnings
-import time
+import cos_similarity as cos_sim
 
 warnings.filterwarnings("ignore")
 
 def init():
     print("Reading CSV and StopWords file...")
-    #Data_temp = pd.read_csv('Greek_Parliament_Proceedings_1989_2020_DataSample.csv')
-    Data_temp = pd.read_csv('Greek_Parliament_Proceedings_1989_2020.csv')
+    Data_temp = pd.read_csv('Greek_Parliament_Proceedings_1989_2020_DataSample.csv')
+    #Data_temp = pd.read_csv('Greek_Parliament_Proceedings_1989_2020.csv')
     Data = Data_temp.loc[(Data_temp['political_party'] != 'βουλη')]
     Data.reset_index(drop=True, inplace=True)
     Data_list = Data['speech'].values.tolist()
@@ -84,16 +84,12 @@ def init():
     print('Done!')
     return Data, Docs, index_dict, words_dict, stop_words_array, member_dict, party_dict, tags_dict 
 
-#if __name__ == "__main__":
-    #Data, Docs, member_dict, party_dict, tags_dict = init()
-
 '''
-Data, Docs, words_dict, stop_words_array, member_dict, party_dict, tags_dict = init()
+Data, Docs, index_dict, words_dict, stop_words_array, member_dict, party_dict, tags_dict = init()
 
 query, query_tags = dp.process('Αγρότης', stop_words_array)
 if (type(query) is int):
     print ('Bad query')
 
-#print(len(words_dict.keys()))
 print(cos_sim.doc_query_similarity(Docs, words_dict, query))
 '''
