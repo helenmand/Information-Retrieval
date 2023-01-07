@@ -36,9 +36,13 @@ def stemming(preprocessed_data):
     preprocessed_data1 = preprocessed_data      
     return preprocessed_data1            
 
+def preprocess(Data, stop_words_array):
+    preprocessed_data = stop_word_removal(punctuation_removal(Data), stop_words_array)
+    return preprocessed_data
+
 def process(Data, stop_words_array):
 
-    preprocessed_data = stop_word_removal(punctuation_removal(Data), stop_words_array)
+    preprocessed_data = preprocess(Data, stop_words_array)
     processed_data = stemming(preprocessed_data)
 
     data_list = preprocessed_data.split(' ')
