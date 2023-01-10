@@ -1,7 +1,6 @@
 import pandas as pd
 import data_processing as dp
 import warnings
-import cos_similarity as cos_sim
 
 warnings.filterwarnings("ignore")
 

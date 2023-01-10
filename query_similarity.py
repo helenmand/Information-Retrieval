@@ -1,18 +1,8 @@
-from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.metrics.pairwise import cosine_similarity
 from math import log
 from heapq import nsmallest
 import numpy as np
 
-def doc_doc_similarity(Docs):
-    tfidf_vectorizer = TfidfVectorizer()
-
-    tfidf_matrix = tfidf_vectorizer.fit_transform(Docs)
-    ddsim_matrix = cosine_similarity(tfidf_matrix[:], tfidf_matrix)
-
-    return ddsim_matrix
-
-def doc_query_similarity(Docs, words_dict, query):
+def doc_query_similarity(words_dict, query):
     index_dict = {}
     index = 0
     Tf_idf_dict = {}
