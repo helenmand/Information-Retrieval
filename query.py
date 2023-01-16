@@ -1,4 +1,4 @@
-import cos_similarity as cs
+import query_similarity as cs
 
 """
 Returns the 5 most similar documents (sittings) to a query:
