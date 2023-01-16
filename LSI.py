@@ -13,27 +13,28 @@ processed_speeches = []
 
 stop_words_array = []
 with open("stopwords.txt", "r", encoding="utf8") as file:
-	for stopword in file.readlines():
-		stopword = stopword[:-1]
-		stop_words_array.append(stopword)
+    for stopword in file.readlines():
+        stopword = stopword[:-1]
+        stop_words_array.append(stopword)
 
 # processing each speech to remove punctuation and stopwords
 for speech in Data_list:
-	speech_list = speech.split(' ')
+    speech_list = speech.split(' ')
     # keeping only speeches with more than 100 words
-	if (len(speech_list) > 100):	
-		#text = dp.punctuation_removal(speech)
-		text = dp.stop_word_removal(speech, stop_words_array=stop_words_array)
+    if (len(speech_list) > 100):
+         text = dp.punctuation_removal(speech)
+         text = dp.stop_word_removal(text, stop_words_array = stop_words_array)
+         processed_speeches.append(text)
 
-		processed_speeches.append(text)
+
 
 tfidf = TfidfVectorizer()
 result = tfidf.fit_transform(processed_speeches)
 lsa = TruncatedSVD(n_components = 40, n_iter = 100, random_state = 42)
 lsa.fit_transform(result)
 
-# Get Singular values and Components 
-Sigma = lsa.singular_values_ 
+# Get Singular values and Components
+Sigma = lsa.singular_values_
 V_transpose = lsa.components_.T
 
 # Print the topics with their terms
