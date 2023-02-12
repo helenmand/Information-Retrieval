@@ -1,7 +1,5 @@
 from greek_stemmer import stemmer
 from collections import Counter
-import time
-import sys
 
 def punctuation_removal(Data):
     preprocessed_data = []

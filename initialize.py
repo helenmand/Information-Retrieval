@@ -68,13 +68,13 @@ def init():
                 tags_dict[id] = tags
                 Docs.append(' '.join(result))
             
-                name = Data['member_name'][id]
+                name = Data['member_name'][index]
                 if name in member_dict:
                     member_dict[name].append(id)
                 else:
                     member_dict[name] = [id]
 
-                party = Data['political_party'][id]
+                party = Data['political_party'][index]
                 if party in party_dict:
                     if name not in party_dict[party]:
                         party_dict[party].append(name)
