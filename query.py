@@ -63,7 +63,7 @@ def get_sittings_by_party(party, Data, index_dict, tags_dict, party_dict, member
     return sittings[::-1]
 
 
-# for testing
+"""# for testing
 if __name__ == "__main__":
     global Data, member_dict, party_dict, tags_dict
     Data, Docs, index_dict, words_dict, stop_words_array, member_dict, party_dict, tags_dict = it.init()
@@ -72,3 +72,4 @@ if __name__ == "__main__":
    # print(sit[::-1])
     sit = get_sittings_by_party(party='νεα δημοκρατια',Data=Data, index_dict=index_dict, tags_dict=tags_dict, party_dict=party_dict, member_dict=member_dict)
     print(len(sit))
+"""
