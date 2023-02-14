@@ -15,7 +15,7 @@ def index():
         squery = request.form.get('query')
         uquery, query_tags = dp.process(squery, stop_words_array)
         fs = 1
-
+        
         # bad query
         if (type(uquery) is int):
             return redirect('404.html')
@@ -30,7 +30,7 @@ def queries():
     global sitting_id, data, speaker_name, party_name, squery, uquery, querries, fs
 
     if fs == 1:
-        data = q.get_sittings(uquery, Data, Docs, index_dict, words_dict, tags_dict)
+        data = q.get_sittings(uquery, Data, index_dict, words_dict, tags_dict)
         querries = render_template('result.html', queryDetails = data, uquery = squery)
 
     # request to view more info about the sitting , the speaker or the political party
@@ -69,6 +69,7 @@ def sitting():
 def speaker():
     global sitting_id, data, speaker_name, party_name, Data, tags_dict, member_dict, fs
     sittings = q.get_sittings_by_speaker(speaker_name, Data, index_dict, tags_dict, member_dict)
+    print(len(sittings))
     fs += 1
 
     # request to view more info about the sitting or the political party
