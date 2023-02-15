@@ -4,6 +4,19 @@ import pandas as pd
 from collections import Counter
 from mlxtend.frequent_patterns import apriori, association_rules
 
+"""
+Makes a file that contains association rules using the words of the dataset's speeches'
+
+Uses the apriori method
+
+start_year: Uses data from this year and after
+end_year: Uses data from this year and before
+pref_speaker: Uses data only from this member's speeches
+pref_party: Uses data only from this party's speeches
+pref_word: Only rules that contain this word will be formed
+user_useless_tags: Words that won't be used in the rules
+minimum_support: Minimum support that the rules must have
+"""
 def make_rules(start_year = 'None', end_year = 'None', pref_speaker = 'None', pref_party = 'None', pref_word = 'None', user_useless_tags = [], minimum_support = 0.03):
     Data, stop_words_array = init.readCSV()
     Data_list = Data['speech'].values.tolist()
@@ -14,15 +27,16 @@ def make_rules(start_year = 'None', end_year = 'None', pref_speaker = 'None', pr
     past_percentage = 0
     index = 0
 
-    #CHANGE THIS VARIABLE TO MODIFY THE AMOUNT OF DATA THAT'LL BE PROCESSED (HIGHER = LESS DATA)
+    #CHANGE THIS VARIABLE TO MODIFY THE AMOUNT OF DATA THAT'LL BE PROCESSED (HIGHER == LESS DATA, ALL DATA == 1)
     ################################
     increment = 5
     ################################
 
     if (increment <= 0):
-        print('Are you stupid? :3')
+        print('Increment can\'t be less than 1. (Set automatically to 1)')
         increment = 1
-
+ 
+    #Processes the speeches (no stemming) after checking if they satisfy the conditions set by the user
     print ('Processing: 0%')
     for speech in Data_list:
 
@@ -51,6 +65,8 @@ def make_rules(start_year = 'None', end_year = 'None', pref_speaker = 'None', pr
         print('No suitable speeches found!')
         return 1
 
+    #Takes the 50 most frequent terms of every speech and adds them to lists that represent the columns of a yet-to-be-made dataframe
+    #If a word is part of the useless_tags or user_useless_tags lists then it'll be discarded
     print('Done!\nMaking Tags...\nProcessing: 0%')
 
     index = 0
@@ -87,6 +103,7 @@ def make_rules(start_year = 'None', end_year = 'None', pref_speaker = 'None', pr
         print('Couldn\'t find good tags!')
         return 1
 
+    #Makes the dataframe on which we'll execute the apriori algorithm
     print('Done!\nMaking DataFrame...\nProcessing: 0%')
 
     index = 0
@@ -112,6 +129,7 @@ def make_rules(start_year = 'None', end_year = 'None', pref_speaker = 'None', pr
 
     tag_df = pd.DataFrame(df_dict)
 
+    #Apriori
     print('Done!\nMaking Rules...')
 
     frequent_items = apriori(tag_df, min_support = minimum_support, use_colnames = True)
@@ -123,6 +141,7 @@ def make_rules(start_year = 'None', end_year = 'None', pref_speaker = 'None', pr
     rules = association_rules(frequent_items, metric ="lift", min_threshold = 1)
     rules = rules.sort_values(['confidence', 'lift'], ascending =[False, False])
 
+    #Makes the file
     file = open("Rules.txt", "w", encoding="utf-8")
     if (start_year != 'None'):
         file.write('From: ' + start_year + '\n')
@@ -148,4 +167,4 @@ def make_rules(start_year = 'None', end_year = 'None', pref_speaker = 'None', pr
 
 ##################################################################################
 ##################################################################################
-make_rules('None', 'None', 'μητσοτακης κωνσταντινου κυριακος', 'None', 'τσιπρα', [], 0.04)
+make_rules('2008', 'None', 'None', 'None', 'None', [])

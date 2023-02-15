@@ -2,6 +2,11 @@ import data_processing as dp
 import initialize as init
 from collections import Counter
 
+"""
+Makes 2 .txt files for keywords by member and by party (on ascending order from oldest date to newest)
+
+Uses the term frequency to determine importance
+"""
 def find_KeyWords():
     Data, stop_words_array = init.readCSV()
     Data_list = Data['speech'].values.tolist()
@@ -14,15 +19,16 @@ def find_KeyWords():
     index = 0
     id = 0
 
-    #CHANGE THIS VARIABLE TO MODIFY THE AMOUNT OF DATA THAT'LL BE PROCESSED (HIGHER = LESS DATA)
+    #CHANGE THIS VARIABLE TO MODIFY THE AMOUNT OF DATA THAT'LL BE PROCESSED (HIGHER == LESS DATA, ALL DATA == 1)
     ################################
     increment = 5
     ################################
 
     if (increment <= 0):
-        print('Are you stupid? :3')
+        print('Increment can\'t be less than 1. (Set automatically to 1)')
         increment = 1
 
+    #Processes the speeches(without stemming) and makes dictionaries based on the dates for the members and parties
     print ('Processing: 0%')
     for speech in Data_list:
 
@@ -64,6 +70,7 @@ def find_KeyWords():
 
     print('Done!')
 
+    #Makes the first file, writing the 15 most frequent terms (key words) said by the members sorted by the sitting date
     file = open("MemberKeyWords.txt", "w", encoding="utf-8")
     for date in date_dict_member:
         file.write('Year: ' + str(date) + '\n============================\n============================\n')
@@ -81,6 +88,7 @@ def find_KeyWords():
     
     file.close()
 
+    #Makes the first file, writing the 15 most frequent terms (key words) said by the parties sorted by the sitting date
     file1 = open("PartyKeyWords.txt", "w", encoding="utf-8")
     for date in date_dict_party:
         file1.write('Year: ' + str(date) + '\n============================\n============================\n')

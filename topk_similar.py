@@ -3,6 +3,11 @@ import initialize as init
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 
+"""
+Prints the top k similar documents
+
+Uses cosine similarity
+"""
 def topk_similar(k):
     Data, stop_words_array = init.readCSV()
     Data_list = Data['speech'].values.tolist()
@@ -16,15 +21,16 @@ def topk_similar(k):
     index = 0
     id = 0
 
-    #CHANGE THIS VARIABLE TO MODIFY THE AMOUNT OF DATA THAT'LL BE PROCESSED (HIGHER = LESS DATA)
+    #CHANGE THIS VARIABLE TO MODIFY THE AMOUNT OF DATA THAT'LL BE PROCESSED (HIGHER == LESS DATA, ALL DATA == 1)
     ################################
     increment = 5
     ################################
 
     if (increment <= 0):
-        print('Are you stupid? :3')
+        print('Increment can\'t be less than 1. (Set automatically to 1)')
         increment = 1
 
+    #Processes the speeches and makes dictionaries for the final Docs, members and parties
     print ('Processing: 0%')
     for speech in Data_list:
 
@@ -52,12 +58,15 @@ def topk_similar(k):
             past_percentage = percentage
 
     print('Done!')
+
+    #Uses tf_idf and cosine similarity for the similarity calculation
     print('Calculating Similarity...')
     tfidf_vectorizer = TfidfVectorizer()
     tfidf_matrix = tfidf_vectorizer.fit_transform(list(Docs.values()))
     tfidf_matrix = tfidf_matrix.toarray()
     similarity_matrix = cosine_similarity(tfidf_matrix[:], tfidf_matrix)
 
+    #Finds k most similar based on their cos similarity
     topk_list = []
     topk_values = []
     for i in range(k):
@@ -83,7 +92,8 @@ def topk_similar(k):
                 if (inserted):
                     topk_list[pos] = [i, j]
                     topk_values[pos] = similarity_matrix[i][j]
-                        
+    
+    #Prints the results
     print('\n===============\nTop ' + str(k) + ' pairs:\n===============')
     counter = 0
     for pair in topk_list:

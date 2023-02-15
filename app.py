@@ -106,7 +106,7 @@ def page_not_found(e):
     return render_template('404.html'), 404
 
 if __name__ == '__main__':
-    global Data, Docs, index_dict, words_dict, member_dict, party_dict, tags_dict, stop_words_array, fs
-    Data, Docs, index_dict, words_dict, stop_words_array, member_dict, party_dict, tags_dict = init.init()
+    global Data, index_dict, words_dict, member_dict, party_dict, tags_dict, stop_words_array, fs
+    Data, index_dict, words_dict, stop_words_array, member_dict, party_dict, tags_dict = init.init()
     fs = 0
     app.run(debug=False)
