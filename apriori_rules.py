@@ -49,7 +49,6 @@ def make_rules(start_year = 'None', end_year = 'None', pref_speaker = 'None', pr
             speech_list = speech.split(' ')
             if (len(speech_list) > 100 and index%increment == 0):
                 result = dp.preprocess(speech, stop_words_array)
-                party = Data['political_party'][index]
 
                 if (result != [] and (pref_word in result or pref_word == 'None')):
                     speeches.append(result)
@@ -128,7 +127,7 @@ def make_rules(start_year = 'None', end_year = 'None', pref_speaker = 'None', pr
         index += 1
 
     tag_df = pd.DataFrame(df_dict)
-
+    
     #Apriori
     print('Done!\nMaking Rules...')
 
@@ -146,7 +145,7 @@ def make_rules(start_year = 'None', end_year = 'None', pref_speaker = 'None', pr
     if (start_year != 'None'):
         file.write('From: ' + start_year + '\n')
     if (end_year != 'None'):
-        file.write('Until: ' + start_year + '\n')
+        file.write('Until: ' + end_year + '\n')
     if (pref_party != 'None'):
         file.write('Party: ' + pref_party + '\n')
     if (pref_speaker != 'None'):
@@ -167,4 +166,4 @@ def make_rules(start_year = 'None', end_year = 'None', pref_speaker = 'None', pr
 
 ##################################################################################
 ##################################################################################
-make_rules('2008', 'None', 'None', 'None', 'None', [])
+make_rules('None', 'None', 'None', 'None', 'None', [])
