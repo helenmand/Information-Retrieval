@@ -131,7 +131,7 @@ def make_rules(start_year = 'None', end_year = 'None', pref_speaker = 'None', pr
     #Apriori
     print('Done!\nMaking Rules...')
 
-    frequent_items = apriori(tag_df, min_support = minimum_support, use_colnames = True)
+    frequent_items = apriori(tag_df, min_support = minimum_support, max_len = 3, use_colnames = True)
 
     if frequent_items.empty:
         print('Couldn\'t find frequent sets (minimum support is too high?)')
@@ -166,4 +166,4 @@ def make_rules(start_year = 'None', end_year = 'None', pref_speaker = 'None', pr
 
 ##################################################################################
 ##################################################################################
-make_rules('None', 'None', 'None', 'None', 'None', [])
+make_rules(start_year = '2001', end_year = '2008', pref_speaker = 'None', pref_party = 'νεα δημοκρατια', pref_word = 'None', user_useless_tags = ['νεα', 'δημοκρατια'], minimum_support = 0.03)
