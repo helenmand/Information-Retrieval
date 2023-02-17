@@ -4,7 +4,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 
 """
-Prints the top k similar documents
+Makes a file with the top k similar speakers
 
 Uses cosine similarity
 """
@@ -93,13 +93,16 @@ def topk_similar(k):
                     topk_list[pos] = [i, j]
                     topk_values[pos] = similarity_matrix[i][j]
     
-    #Prints the results
-    print('\n===============\nTop ' + str(k) + ' pairs:\n===============')
+    #Makes the file 
+    file = open("TopK_Similar.txt", "w", encoding="utf-8")
+    file.write('\n===============\nTop ' + str(k) + ' pairs:\n===============\n\n')
     counter = 0
     for pair in topk_list:
-        print(member_dict[pair[0]] + ' (' + str(party_dict[member_dict[pair[0]]]) + ') ------- ' + 
-        member_dict[pair[1]] + ' (' + str(party_dict[member_dict[pair[1]]]) + ')  (Score: ' + str(topk_values[counter]) + ')\n')
+        file.write(member_dict[pair[0]] + ' (' + str(party_dict[member_dict[pair[0]]]) + ') ------- ' + 
+        member_dict[pair[1]] + ' (' + str(party_dict[member_dict[pair[1]]]) + ')  (Score: ' + str(topk_values[counter]) + ')\n\n')
         counter += 1
+    file.close()
+    print('File made!')
 
 ###############################
 ###############################
