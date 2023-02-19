@@ -7,7 +7,6 @@ A web-based search engine of the Greek Parliament proceedings that runs locally,
 </p>
 
 ## Installation
----
 In order to run the app you need to run to install all the necessary modules
 ```
 pip install -r requirements.txt
