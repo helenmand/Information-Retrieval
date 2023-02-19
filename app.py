@@ -69,7 +69,6 @@ def sitting():
 def speaker():
     global sitting_id, data, speaker_name, party_name, Data, tags_dict, member_dict, fs
     sittings = q.get_sittings_by_speaker(speaker_name, Data, index_dict, tags_dict, member_dict)
-    print(len(sittings))
     fs += 1
 
     # request to view more info about the sitting or the political party

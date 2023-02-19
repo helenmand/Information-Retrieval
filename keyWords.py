@@ -71,7 +71,7 @@ def find_KeyWords():
     print('Done!')
 
     #Makes the first file, writing the 15 most frequent terms (key words) said by the members sorted by the sitting date
-    file = open("MemberKeyWords.txt", "w", encoding="utf-8")
+    file = open(".\\generated_files\MemberKeyWords.txt", "w", encoding="utf-8")
     for date in date_dict_member:
         file.write('Year: ' + str(date) + '\n============================\n============================\n')
         for name in date_dict_member[date]:
@@ -89,7 +89,7 @@ def find_KeyWords():
     file.close()
 
     #Makes the first file, writing the 15 most frequent terms (key words) said by the parties sorted by the sitting date
-    file1 = open("PartyKeyWords.txt", "w", encoding="utf-8")
+    file1 = open(".\\generated_files\PartyKeyWords.txt", "w", encoding="utf-8")
     for date in date_dict_party:
         file1.write('Year: ' + str(date) + '\n============================\n============================\n')
         for party in date_dict_party[date]:

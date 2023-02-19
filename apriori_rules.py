@@ -141,7 +141,7 @@ def make_rules(start_year = 'None', end_year = 'None', pref_speaker = 'None', pr
     rules = rules.sort_values(['confidence', 'lift'], ascending =[False, False])
 
     #Makes the file
-    file = open("Rules.txt", "w", encoding="utf-8")
+    file = open(".\generated_files\Rules.txt", "w", encoding="utf-8")
     if (start_year != 'None'):
         file.write('From: ' + start_year + '\n')
     if (end_year != 'None'):
@@ -166,4 +166,4 @@ def make_rules(start_year = 'None', end_year = 'None', pref_speaker = 'None', pr
 
 ##################################################################################
 ##################################################################################
-make_rules(start_year = '2001', end_year = '2008', pref_speaker = 'None', pref_party = 'νεα δημοκρατια', pref_word = 'None', user_useless_tags = ['νεα', 'δημοκρατια'], minimum_support = 0.03)
+make_rules(start_year = 'None', end_year = 'None', pref_speaker = 'None', pref_party = 'None', pref_word = 'τουρκια', user_useless_tags = [], minimum_support = 0.03)

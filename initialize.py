@@ -15,7 +15,7 @@ def readCSV():
     Data.reset_index(drop=True, inplace=True)
 
     stop_words_array = []
-    with open("stopwords.txt", "r", encoding="utf8") as file:
+    with open(".\\app_files\stopwords.txt", "r", encoding="utf8") as file:
         for stopword in file.readlines():
             stopword = stopword[:-1]
             stop_words_array.append(stopword)

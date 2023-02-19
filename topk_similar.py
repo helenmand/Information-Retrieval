@@ -94,7 +94,7 @@ def topk_similar(k):
                     topk_values[pos] = similarity_matrix[i][j]
     
     #Makes the file 
-    file = open("TopK_Similar.txt", "w", encoding="utf-8")
+    file = open(".\generated_files\TopK_Similar.txt", "w", encoding="utf-8")
     file.write('\n===============\nTop ' + str(k) + ' pairs:\n===============\n\n')
     counter = 0
     for pair in topk_list:

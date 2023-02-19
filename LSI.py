@@ -4,6 +4,11 @@ from sklearn.decomposition import TruncatedSVD
 import data_processing as dp
 import initialize as init
 
+"""
+Performs LSI on the sittings in order to extract topics. 
+The number of topics was extracted by studying the topic number - strength plot.   
+"""
+
 # speech data
 Data, stop_words_array = init.readCSV()
 Data_list = Data['speech'].values.tolist()
@@ -12,7 +17,7 @@ Data_length = len(Data_list)
 processed_speeches = []
 
 stop_words_array = []
-with open("stopwords.txt", "r", encoding="utf8") as file:
+with open(".\\app_files\stopwords.txt", "r", encoding="utf8") as file:
     for stopword in file.readlines():
         stopword = stopword[:-1]
         stop_words_array.append(stopword)
