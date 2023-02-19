@@ -1,6 +1,6 @@
 # Information-Retrieval 2022-2023
 
-A web-based search engine of the Greek Parliament proceedings that runs locally, developed with Python, Flask and HTML. 
+A web-based search engine of the Greek Parliament proceedings that runs locally, developed with Python, Flask and HTML. This is a project for the Information Retrieval course @ AUTh 
 
 ## Installation
 ---
